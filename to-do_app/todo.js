@@ -1,23 +1,33 @@
-const todos = [{
-    text: 'Order cat food',
-    completed: false
-}, {
-    text: 'Clean kitchen',
-    completed: true
-}, {
-    text: 'Buy food',
-    completed: true
-}, {
-    text: 'Do work',
-    completed: false
-}, {
-    text: 'Exercise',
-    completed: true
-}]
+// const todos = [{
+//     text: 'Order cat food',
+//     completed: false
+// }, {
+//     text: 'Clean kitchen',
+//     completed: true
+// }, {
+//     text: 'Buy food',
+//     completed: true
+// }, {
+//     text: 'Do work',
+//     completed: false
+// }, {
+//     text: 'Exercise',
+//     completed: true
+// }]
+
+let todos = [];
 
 let filters = {
     searchText: '',
     hideCompleted: false
+}
+
+let todosJSON = localStorage.getItem('todos');
+
+if (todosJSON !== null) {
+    todos = JSON.parse(todosJSON)
+} else {
+    console.log ('Local Storage is empty')
 }
 
 const todoList = document.querySelector('.todo-list');
@@ -82,6 +92,8 @@ addBtn.addEventListener('click', function(event) {
         text: addInput.value,
         completed: false
     })
+    localStorage.setItem('todos', JSON.stringify(todos))
     renderTodos(todos, filters)
     addInput.value = ''
 })
+
